@@ -6,11 +6,20 @@
     <title>Arca Poetica</title>
 
     <style>
-        #input {
-            /* display: none; */
+        body {
+            position: absolute;
+            inset: 0;
+        }
+        #input {  
+            position: absolute;
+            top: -50px;
+            left: -250px;
             opacity: 0;
             width: 0;
             height: 0;
+        }
+        #handwriting {
+            font-size: 64px;
         }
     </style>
 </head>
@@ -18,7 +27,7 @@
 <body>
     <input type="text" id="input" />
     <!-- Your HTML layout goes here -->
-     <div id="tegaki"></div>
+     <div id="handwriting"></div>
 
     <!-- Point this directly to your source JS file (NOT a bundled file!) -->
     <script type="module" src="/src/app.js"></script>

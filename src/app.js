@@ -1,9 +1,11 @@
 import { TegakiEngine } from 'tegaki/core';
 import bundle from 'tegaki/fonts/caveat';
 
-const container = document.getElementById('tegaki');
+const container = document.getElementById('handwriting');
 
 const input = document.getElementById('input');
+
+const body = document.body;
 
 input.focus();
 
@@ -15,6 +17,14 @@ const engine = new TegakiEngine(container, {
     time: { mode: 'uncontrolled', speed: 1, loop: false },
 });
 
+// keep input focused
+body.addEventListener('click', () => {
+    input.focus();
+})
+input.addEventListener('blur', () => {
+    input.focus();
+});
+
 input.addEventListener('keyup', (event) => {
     // console.log('event', event.target.value)
     // console.log('input', event.key)
@@ -24,4 +34,4 @@ input.addEventListener('keyup', (event) => {
         // engine.update({text: event.target.value})
         input.value = '';
     }
-})
+});
