@@ -2,6 +2,8 @@ import { TegakiEngine } from 'tegaki/core';
 // import bundle from 'tegaki/fonts/caveat';
 import bundle from 'tegaki/fonts/tangerine';
 
+const speed = 1;
+
 const container = document.getElementById('handwriting');
 const input = document.getElementById('input');
 const body = document.body;
@@ -13,7 +15,7 @@ let text = '';
 const engine = new TegakiEngine(container, {
     text,
     font: bundle,
-    time: { mode: 'uncontrolled', speed: 2.2, loop: false },
+    time: { mode: 'uncontrolled', speed, loop: false },
 });
 
 // keep input focused
