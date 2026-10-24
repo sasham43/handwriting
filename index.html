@@ -6,10 +6,18 @@
     <title>Arca Poetica</title>
 
     <style>
+        html, body { height: 100%; margin: 0; }
+
+        #scroller {
+            height: 100dvh;        /* fills the 640x360 projector */
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+        #scroller::-webkit-scrollbar { display: none; }
         body {
-            position: absolute;
+            /* position: absolute;
             inset: 0;
-            overflow: hidden;
+            overflow: hidden; */
 
             background: black;
             color: white;
@@ -30,18 +38,21 @@
             font-size: 82px;
             /* letter-spacing: -8px; */
 
-            overflow: hidden;
+            /* overflow: hidden;
 
             display: flex;
-            flex-direction: column-reverse;
+            flex-direction: column-reverse; */
         }
     </style>
 </head>
 
 <body>
     <input type="text" id="input" />
-    <!-- Your HTML layout goes here -->
-     <div id="handwriting"></div>
+    <div id="content">
+        <div id="scroller">
+            <div id="handwriting"></div>
+        </div>
+    </div>
 
     <!-- Point this directly to your source JS file (NOT a bundled file!) -->
     <script type="module" src="/src/app.js"></script>

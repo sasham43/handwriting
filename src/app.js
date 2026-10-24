@@ -18,6 +18,15 @@ const engine = new TegakiEngine(container, {
     time: { mode: 'uncontrolled', speed, loop: false },
 });
 
+// scroll logic
+const scroller = document.getElementById('scroller');
+const content = document.getElementById('content');
+
+const ro = new ResizeObserver(() => {
+  scroller.scrollTo({ top: scroller.scrollHeight, behavior: 'smooth' });
+});
+ro.observe(content);
+
 // keep input focused
 body.addEventListener('click', () => {
     input.focus();
