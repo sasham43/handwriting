@@ -43,5 +43,7 @@ input.addEventListener('keyup', (event) => {
         engine.update({text})
         // engine.update({text: event.target.value})
         input.value = '';
+
+        scroller.scrollTo({ top: scroller.scrollHeight, behavior: 'smooth' });
     }
 });
