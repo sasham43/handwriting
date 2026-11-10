@@ -6,6 +6,7 @@ const KEY_1 = '¡';
 const KEY_2 = '™';
 const KEY_3 = '£';
 const KEY_4 = '¢';
+const PLAYBACK_INTERVAL_MS = 10000;
 
 const speed = 1;
 
@@ -28,7 +29,10 @@ const engine = new TegakiEngine(container, {
     text,
     font: bundle,
     time: { mode: 'uncontrolled', speed, loop: false },
+    onComplete: onTextWriteComplete
 });
+
+let poem;
 
 // scroll logic
 const scroller = document.getElementById('scroller');
@@ -77,12 +81,15 @@ input.addEventListener('keydown', (event => {
     }
 
     if(key === KEY_1){
+        event.preventDefault();
         runCommand('1')
     }
     if(key === KEY_2){
+        event.preventDefault();
         runCommand('2')
     }
     if(key === KEY_3){
+        event.preventDefault();
         runCommand('3')
     }
     if(key === KEY_4){
@@ -102,6 +109,8 @@ function hideMenu(){
 function runCommand(command){
     if(!isMenuShowing) return;
 
+    input.value = '';
+
     switch(command){
         case '1':
             playPoem();
@@ -116,12 +125,24 @@ function runCommand(command){
             clearPoem();
             break;
     }
+
+    console.log('input value', input.value)
 }
 
 function playPoem(){}
 
-function readCrystal(){
-    //
+async function readCrystal(){
+    // const response = await fetch('/api/list');
+    // const data = await response.json();
+
+    // console.log('response', data);
+    // const poem = data[0];
+
+    // playbackPoem(poem.poemArray);
+
+
+    // DEBUG
+    playbackPoem(['line 1', 'line 2', 'line 3'])
 }
 
 function saveToCrystal(){}
@@ -130,4 +151,46 @@ function clearPoem(){
     text = '';
     engine.update({text})
     input.value = '';
+}
+
+let count = 0;
+let isPlayingBack = false;
+function playbackPoem(poemArray){
+    isPlayingBack = true;
+    poem = poemArray;
+
+    // grab the first line, play it
+    let nextLine = poem[count];
+
+    if(nextLine){
+        text += `${nextLine} \n`
+        engine.update({text});
+    } else {
+        isPlayingBack = false;
+        console.error('you have done it now')
+    }
+}
+
+function onTextWriteComplete(){
+    // console.log('text complete', count, poem.length);
+
+    if(isPlayingBack){
+        count++;
+    
+        if(count <= poem.length){
+            let nextLine = poem[count];
+    
+            if(nextLine){
+                text += `${nextLine} \n`
+                engine.update({text});
+                scroller.scrollTo({ top: scroller.scrollHeight, behavior: 'smooth' });
+            } else {
+                isPlayingBack = false;
+                console.log('poem done')
+            }
+        } else {
+            isPlayingBack = false;
+            console.error('you have done it now from inside the loop')
+        }
+    }
 }

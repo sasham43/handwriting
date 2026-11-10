@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs/promises';
 
+import { the_splendor_falls } from './poems.js';
+
 const ROOT = path.resolve(process.env.USB_PATH || '/media/usb'); // your mount point
 const app = express();
 
@@ -14,13 +16,24 @@ const safe = (rel = '') => {
 
 // List a directory: GET /api/list?path=some/folder
 app.get('/api/list', async (req, res) => {
-  try {
-    const entries = await fs.readdir(safe(req.query.path), { withFileTypes: true });
-    res.json(entries.map(e => ({ name: e.name, isDir: e.isDirectory() })));
-  } catch (err) {
-    res.status(err.message === 'Forbidden' ? 403 : 404).json({ error: err.message });
-  }
+  console.log('req!!')
+
+  const poem = retrievePoems();
+
+  res.json({poem})
+  // try {
+  //   const entries = await fs.readdir(safe(req.query.path), { withFileTypes: true });
+  //   res.json(entries.map(e => ({ name: e.name, isDir: e.isDirectory() })));
+  // } catch (err) {
+  //   res.status(err.message === 'Forbidden' ? 403 : 404).json({ error: err.message });
+  // }
 });
+
+function retrievePoems(){
+  // add ability to look through usb drive for existing poems
+
+  return [{poemArray: the_splendor_falls}]
+}
 
 // Read/download a file: GET /api/file?path=some/file.txt
 app.get('/api/file', (req, res) => {
