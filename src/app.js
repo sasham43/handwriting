@@ -64,7 +64,7 @@ input.addEventListener('keyup', (event) => {
 input.addEventListener('keydown', (event => {
     const key = event.key;
 
-    console.log('keydown key', key)
+    console.log('keydown key', event)
 
     if(key === 'Alt'){
         console.log('we got an alt baby');
@@ -72,8 +72,18 @@ input.addEventListener('keydown', (event => {
         showMenu();
     }
 
-    if(key === '1'){
+    if(key === '¡'){
         runCommand('1')
+    }
+    if(key === '™'){
+        runCommand('2')
+    }
+    if(key === '£'){
+        runCommand('3')
+    }
+    if(key === '¢'){
+        event.preventDefault();
+        runCommand('4')
     }
 }));
 
@@ -114,4 +124,6 @@ function saveToCrystal(){}
 
 function clearPoem(){
     text = '';
+    engine.update({text})
+    input.value = '';
 }
