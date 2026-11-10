@@ -2,6 +2,11 @@ import { TegakiEngine } from 'tegaki/core';
 // import bundle from 'tegaki/fonts/caveat';
 import bundle from 'tegaki/fonts/tangerine';
 
+const KEY_1 = '¡';
+const KEY_2 = '™';
+const KEY_3 = '£';
+const KEY_4 = '¢';
+
 const speed = 1;
 
 const container = document.getElementById('handwriting');
@@ -72,16 +77,16 @@ input.addEventListener('keydown', (event => {
         showMenu();
     }
 
-    if(key === '¡'){
+    if(key === KEY_1){
         runCommand('1')
     }
-    if(key === '™'){
+    if(key === KEY_2){
         runCommand('2')
     }
-    if(key === '£'){
+    if(key === KEY_3){
         runCommand('3')
     }
-    if(key === '¢'){
+    if(key === KEY_4){
         event.preventDefault();
         runCommand('4')
     }
