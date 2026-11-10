@@ -147,7 +147,20 @@ async function readCrystal(){
     // playbackPoem(['line 1', 'line 2', 'line 3'])
 }
 
-function saveToCrystal(){}
+async function saveToCrystal(){
+    const response = await fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            filename: 'list.txt',
+            lines: ['apple', 'banana', 'cherry'],
+        }),
+    });
+
+    if (!response.ok) throw new Error(`Save failed: ${response.status}`);
+    const result = await response.json();
+    console.log('saved poem', result)
+}
 
 function clearPoem(){
     text = '';

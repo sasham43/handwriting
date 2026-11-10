@@ -6,6 +6,7 @@ import { the_splendor_falls, pioneers_o_pioneers } from './poems.js';
 
 const ROOT = path.resolve(process.env.USB_PATH || '/media/usb'); // your mount point
 const app = express();
+app.use(express.json());
 
 // Resolve a user-supplied path and make sure it stays inside ROOT
 const safe = (rel = '') => {
@@ -49,6 +50,36 @@ app.get('/api/file', (req, res) => {
   } catch (err) {
     res.status(403).json({ error: err.message });
   }
+});
+
+// POST /api/save  body: { "filename": "list.txt", "lines": ["one", "two", "three"] }
+app.post('/api/save', async (req, res) => {
+
+  try {
+    const {filename, lines} = req.body;
+    console.log('filename', filename);
+    console.log('lines', lines);
+
+    res.json({ ok: true, count: lines.length });
+  } catch(err){
+    res.status(err.message === 'Forbidden' ? 403 : 500).json({ error: err.message });
+  }
+
+  // try {
+  //   const { filename, lines } = req.body;
+
+  //   if (typeof filename !== 'string' || !filename.endsWith('.txt')) {
+  //     return res.status(400).json({ error: 'filename must be a .txt file' });
+  //   }
+  //   if (!Array.isArray(lines) || !lines.every(l => typeof l === 'string')) {
+  //     return res.status(400).json({ error: 'lines must be an array of strings' });
+  //   }
+
+  //   await fs.writeFile(safe(filename), lines.join('\n'), 'utf8');
+  //   res.json({ ok: true, count: lines.length });
+  // } catch (err) {
+  //   res.status(err.message === 'Forbidden' ? 403 : 500).json({ error: err.message });
+  // }
 });
 
 app.listen(3001, () => console.log(`Serving ${ROOT} on http://localhost:3001`));
