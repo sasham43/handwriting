@@ -72,7 +72,6 @@ input.addEventListener('keydown', (event => {
     console.log('keydown key', event)
 
     if(key === 'Alt'){
-        console.log('we got an alt baby');
         isMenuShowing = true;
         showMenu();
     }
