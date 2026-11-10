@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs/promises';
 
-import { the_splendor_falls } from './poems.js';
+import { the_splendor_falls, pioneers_o_pioneers } from './poems.js';
 
 const ROOT = path.resolve(process.env.USB_PATH || '/media/usb'); // your mount point
 const app = express();
@@ -18,9 +18,9 @@ const safe = (rel = '') => {
 app.get('/api/list', async (req, res) => {
   console.log('req!!')
 
-  const poem = retrievePoems();
+  const poems = retrievePoems();
 
-  res.json({poem})
+  res.json({poems})
   // try {
   //   const entries = await fs.readdir(safe(req.query.path), { withFileTypes: true });
   //   res.json(entries.map(e => ({ name: e.name, isDir: e.isDirectory() })));
@@ -32,7 +32,14 @@ app.get('/api/list', async (req, res) => {
 function retrievePoems(){
   // add ability to look through usb drive for existing poems
 
-  return [{poemArray: the_splendor_falls}]
+  return [
+    toPoemArray(the_splendor_falls),
+    toPoemArray(pioneers_o_pioneers)
+  ]
+}
+
+function toPoemArray(text){
+  return {poemArray: text}
 }
 
 // Read/download a file: GET /api/file?path=some/file.txt

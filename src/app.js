@@ -125,24 +125,26 @@ function runCommand(command){
             clearPoem();
             break;
     }
-
-    console.log('input value', input.value)
 }
 
-function playPoem(){}
+async function playPoem(){
+    const response = await fetch('/api/list');
+    const data = await response.json();
+
+    console.log('response', data);
+    const num = randomIntFromInterval(0, data.poems.length - 1);
+    const poem = data.poems[num];
+
+    playbackPoem(poem.poemArray);
+}
 
 async function readCrystal(){
-    // const response = await fetch('/api/list');
-    // const data = await response.json();
-
-    // console.log('response', data);
-    // const poem = data[0];
-
-    // playbackPoem(poem.poemArray);
+    // update this when readCrystal functionality is implemented
+    playPoem();
 
 
     // DEBUG
-    playbackPoem(['line 1', 'line 2', 'line 3'])
+    // playbackPoem(['line 1', 'line 2', 'line 3'])
 }
 
 function saveToCrystal(){}
@@ -193,4 +195,8 @@ function onTextWriteComplete(){
             console.error('you have done it now from inside the loop')
         }
     }
+}
+
+function randomIntFromInterval(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
