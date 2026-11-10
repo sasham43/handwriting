@@ -8,6 +8,13 @@ const container = document.getElementById('handwriting');
 const input = document.getElementById('input');
 const body = document.body;
 
+let isMenuShowing = false;
+const menu = document.getElementById('menu');
+const menu1 = document.getElementById('menu-play-poem');
+const menu2 = document.getElementById('menu-read-crystal');
+const menu3 = document.getElementById('menu-save-crystal');
+const menu4 = document.getElementById('menu-clear poem');
+
 input.focus();
 
 let text = '';
@@ -46,4 +53,65 @@ input.addEventListener('keyup', (event) => {
 
         scroller.scrollTo({ top: scroller.scrollHeight, behavior: 'smooth' });
     }
+
+    if(event.key === 'Alt'){
+        isMenuShowing = false;
+        hideMenu();
+    }
 });
+
+// modifider menu logic
+input.addEventListener('keydown', (event => {
+    const key = event.key;
+
+    console.log('keydown key', key)
+
+    if(key === 'Alt'){
+        console.log('we got an alt baby');
+        isMenuShowing = true;
+        showMenu();
+    }
+
+    if(key === '1'){
+        runCommand('1')
+    }
+}));
+
+function showMenu(){
+    menu.classList.add('show-menu');
+}
+
+function hideMenu(){
+    menu.classList.remove('show-menu');
+}
+
+function runCommand(command){
+    if(!isMenuShowing) return;
+
+    switch(command){
+        case '1':
+            playPoem();
+            break;
+        case '2':
+            readCrystal();
+            break;
+        case '3':
+            saveToCrystal();
+            break;
+        case '4':
+            clearPoem();
+            break;
+    }
+}
+
+function playPoem(){}
+
+function readCrystal(){
+    //
+}
+
+function saveToCrystal(){}
+
+function clearPoem(){
+    text = '';
+}

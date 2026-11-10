@@ -36,12 +36,33 @@
 
             /* tangerine fonts */
             font-size: 82px;
-            /* letter-spacing: -8px; */
-
-            /* overflow: hidden;
-
+        }
+        #menu {
+            position: absolute;
+            inset: 0;
+            z-index: 50;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
             display: flex;
-            flex-direction: column-reverse; */
+            gap: 24px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+
+            transition: opacity 1s ease;
+        }
+        #menu.show-menu {
+            opacity: 1;
+        }
+        #center-circle {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 100%;
         }
     </style>
 </head>
@@ -51,6 +72,16 @@
     <div id="content">
         <div id="scroller">
             <div id="handwriting"></div>
+        </div>
+
+        <div id="menu">
+            <div id="menu-play-poem">1 play poem</div>
+            <div id="menu-read-crystal">2 read crystal</div>
+            <div id="menu-save-crystal">3 save crystal</div>
+            <div id="menu-clear-poem">4 clear poem</div>
+
+
+            <div id="center-circle"></div>
         </div>
     </div>
 
