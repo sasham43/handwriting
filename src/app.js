@@ -2,11 +2,10 @@ import { TegakiEngine } from 'tegaki/core';
 // import bundle from 'tegaki/fonts/caveat';
 import bundle from 'tegaki/fonts/tangerine';
 
-const KEY_1 = '¡';
-const KEY_2 = '™';
-const KEY_3 = '£';
-const KEY_4 = '¢';
-const PLAYBACK_INTERVAL_MS = 10000;
+const KEY_1 = 'œ';
+const KEY_2 = '∑';
+const KEY_3 = '´';
+const KEY_4 = '®';
 
 const speed = 1;
 
